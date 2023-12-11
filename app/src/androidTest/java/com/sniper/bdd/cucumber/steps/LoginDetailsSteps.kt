@@ -42,7 +42,7 @@ class LoginDetailsSteps {
         robot.closeKeyboard()
     }
 
-    @And("^I enter valid email (\\S+)$")
+    @And("^I enter email (.*)$")
     fun i_enter_valid_email(email: String) {
         robot.enterEmail(email)
     }
@@ -52,7 +52,7 @@ class LoginDetailsSteps {
         robot.selectPasswordField()
     }
 
-    @And("^I enter valid password (\\S+)$")
+    @And("^I enter password (\\S+)$")
     fun i_enter_valid_password(password: String) {
         robot.enterPassword(password)
     }
@@ -62,9 +62,8 @@ class LoginDetailsSteps {
         robot.clickSignInButton()
     }
 
-    @Then("^I expect to see successful login message$")
-    fun i_expect_to_see_successful_login_message() {
-        robot.isSuccessfulLogin()
+    @Then("^I expect to see (true|false) login message$")
+    fun iExpectToSeeUnsuccessfulLoginMessage(success : String) {
+        robot.isSuccessfulLogin(success)
     }
-
 }

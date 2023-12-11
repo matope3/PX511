@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
+    val myDB = DBHelper(this);
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -21,6 +22,9 @@ class LoginActivity : AppCompatActivity() {
             false
         })
 
+        myDB.insertData("admin@admin.com", "admin");
+        myDB.insertData("user@user.com", "user");
+        myDB.insertData("test@test.com", "test");
         email_sign_in_button.setOnClickListener { attemptLogin() }
     }
 
@@ -42,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
         var focusView: View? = null
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
+        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(emailStr,passwordStr)) {
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -69,12 +73,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
-        return email.contains("@")
+        return myDB.checkusername(email);
     }
 
-    private fun isPasswordValid(password: String): Boolean {
-        //TODO: Replace this with your own logic
-        return password.length > 6
+    private fun isPasswordValid(email: String,password: String): Boolean {
+        return myDB.checkusernamepassword(email,password);
     }
 }
