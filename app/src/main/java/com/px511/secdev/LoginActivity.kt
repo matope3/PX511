@@ -64,17 +64,8 @@ class LoginActivity : AppCompatActivity() {
             // form field with an error.
             focusView?.requestFocus()
         } else {
-            //detection of SQL injection and display of (un)successful login message accordingly
-            if (isSQLInjection(emailStr, passwordStr)){
-                unsuccessful_login_text_view.visibility = View.VISIBLE
-            } else {
-                successful_login_text_view.visibility = View.VISIBLE
-            }
+            successful_login_text_view.visibility = View.VISIBLE
         }
-    }
-
-    private fun isSQLInjection(email: String, password: String): Boolean {
-        return email.contains("\'") or email.contains("\"") or password.contains("\'") or password.contains("\"")
     }
 
     private fun isEmailValid(email: String): Boolean {
