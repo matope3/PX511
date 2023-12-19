@@ -1,20 +1,11 @@
-## BDD TESTS SQL Injection
+## RUN BDD UI TESTS
 
-Pour run les tests :
-`.\gradlew connectedCheck -Pcucumber`
+### To run all End-to-End tests written with Cucumber and BDD execute : 
 
-On a une application de login simple avec une base de donnée qui contient 3 utilisateurs :
-- admin@admin.com ; mdp = admin
-- user@user.com ; mdp = user
-- test@test.com ; mdp = test
+./gradlew connectedCheck -Pcucumber -Ptags="@e2e" 
 
-On test normalement la page de login puis on essaye une injection SQL :
-- test@gmail.com' or 1=1 -- - ; mdp = shioghdiogher (random)
+also run ./gradlew connectedCheck -Pcucumber -Ptags="@smoke" to run all smoke BDD tests
 
-Dans le cas ou ce test valide le login alors il y a injection SQL et le test fail
+### To run individual feature test execute : 
 
-Pour contrer l'injection SQL on peut faire en sorte d'utiliser des requêtes préparées (données et commandes séparées) :
-- `MyDB.rawQuery("Select * from users where username = ? and password = ?", new String[] {username, password})`
-
-Dans le cas contraire on est exposé aux injections SQL :
-- `MyDB.rawQuery("Select * from users where username = '" + username + "'", null)`
+./gradlew connectedCheck -Pcucumber -Pscenario="Successful login"

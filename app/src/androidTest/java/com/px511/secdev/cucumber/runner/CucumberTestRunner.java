@@ -1,8 +1,8 @@
-package com.sniper.bdd.cucumber.runner;
+package com.px511.secdev.cucumber.runner;
 
 import android.os.Bundle;
 import android.support.test.runner.AndroidJUnitRunner;
-import com.sniper.bdd.BuildConfig;
+import com.px511.secdev.BuildConfig;
 import cucumber.api.android.CucumberInstrumentationCore;
 
 @SuppressWarnings("unused")

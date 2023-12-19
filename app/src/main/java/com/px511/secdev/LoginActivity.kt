@@ -1,4 +1,4 @@
-package com.sniper.bdd
+package com.px511.secdev
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    val myDB = DBHelper(this);
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -22,9 +21,6 @@ class LoginActivity : AppCompatActivity() {
             false
         })
 
-        myDB.insertData("admin@admin.com", "admin");
-        myDB.insertData("user@user.com", "user");
-        myDB.insertData("test@test.com", "test");
         email_sign_in_button.setOnClickListener { attemptLogin() }
     }
 
@@ -46,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         var focusView: View? = null
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(emailStr,passwordStr)) {
+        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -68,15 +64,26 @@ class LoginActivity : AppCompatActivity() {
             // form field with an error.
             focusView?.requestFocus()
         } else {
-            successful_login_text_view.visibility = View.VISIBLE
+            //detection of SQL injection and display of (un)successful login message accordingly
+            if (isSQLInjection(emailStr, passwordStr)){
+                unsuccessful_login_text_view.visibility = View.VISIBLE
+            } else {
+                successful_login_text_view.visibility = View.VISIBLE
+            }
         }
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        return myDB.checkusername(email);
+    private fun isSQLInjection(email: String, password: String): Boolean {
+        return email.contains("\'") or email.contains("\"") or password.contains("\'") or password.contains("\"")
     }
 
-    private fun isPasswordValid(email: String,password: String): Boolean {
-        return myDB.checkusernamepassword(email,password);
+    private fun isEmailValid(email: String): Boolean {
+        //TODO: Replace this with your own logic
+        return email.contains("@")
+    }
+
+    private fun isPasswordValid(password: String): Boolean {
+        //TODO: Replace this with your own logic
+        return password.length > 6
     }
 }

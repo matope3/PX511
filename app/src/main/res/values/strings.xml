@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">bdd</string>
+    <string name="app_name">secdev</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -13,4 +13,5 @@
         completions."
     </string>
     <string name="successful_login">Successful Login</string>
+    <string name="unsuccessful_login">Unsuccessful Login</string>
 </resources>

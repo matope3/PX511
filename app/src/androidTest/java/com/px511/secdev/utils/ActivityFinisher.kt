@@ -1,4 +1,4 @@
-package com.sniper.bdd.utils
+package com.px511.secdev.utils
 
 import android.app.Activity
 import android.os.Handler
