@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
+    val myDB = DBHelper(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -20,6 +22,10 @@ class LoginActivity : AppCompatActivity() {
             }
             false
         })
+
+        //init of DB for tests data
+        myDB.insertData("admin@admin.com", "admin123")
+        myDB.insertData("test@test.com", "test123")
 
         email_sign_in_button.setOnClickListener { attemptLogin() }
     }
@@ -74,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isSQLInjection(email: String, password: String): Boolean {
-        return email.contains("\'") or email.contains("\"") or password.contains("\'") or password.contains("\"")
+        return !(myDB.checkusername(email) and myDB.checkusernamepassword(email, password))
     }
 
     private fun isEmailValid(email: String): Boolean {

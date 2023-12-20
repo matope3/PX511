@@ -15,8 +15,8 @@ Feature: Deny login for SQL injection
     And I click on sign in button
     Then I expect to deny login if SQL injection is <attempted> attempted
     Examples:
-      | email                       | password                  | attempted |
-      | somelongemail@mail.com      | 12345678                  | false     |
-      | test@gmail.com              | somePassWithVeryLongValue | false     |
-      | test@gmail.com' or 1=1 -- - | 12345678                  | true      |
-      | test@gmail.com              | 12345678' or 1=1 -- -     | true      |
+      | email                       | password              | attempted |
+      | admin@admin.com             | admin123              | false     |
+      | test@test.com               | test123               | false     |
+      | test@gmail.com' or 1=1 -- - | 12345678              | true      |
+      | admin@admin.com             | 12345678' or 1=1 -- - | true      |
