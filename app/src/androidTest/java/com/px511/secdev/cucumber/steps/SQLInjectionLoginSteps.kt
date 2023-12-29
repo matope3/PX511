@@ -19,7 +19,7 @@ class SQLInjectionLoginSteps {
 
     @Before
     fun setup() {
-        //not needed now, but you may needed to setup mock responses before your screen starts
+        //not needed now, but you may need to set up mock responses before your screen starts
     }
 
     @After

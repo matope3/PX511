@@ -1,14 +1,10 @@
 package com.px511.secdev.cucumber.espresso.login
 
-import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.click
-import android.support.test.espresso.action.ViewActions.typeText
+import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.espresso.matcher.ViewMatchers.withText
+import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import com.px511.secdev.LoginActivity
 import com.px511.secdev.R
@@ -21,11 +17,11 @@ class LoginScreenRobot {
     }
 
     fun selectEmailField() {
-        onView(withId(R.id.email)).perform(click())
+        onView(withId(R.id.email)).perform(scrollTo(),  click())
     }
 
     fun selectPasswordField() {
-        onView(withId(R.id.password)).perform(click())
+        onView(withId(R.id.password)).perform(scrollTo(),  click())
     }
 
     fun enterEmail(email: String) {
@@ -42,7 +38,7 @@ class LoginScreenRobot {
     }
 
     fun clickSignInButton() {
-        onView(withText(InstrumentationRegistry.getTargetContext().getString(R.string.action_sign_in))).perform(click())
+        onView(withId(R.id.email_sign_in_button)).perform(scrollTo(),  click())
     }
 
     fun isSuccessfulLogin() {

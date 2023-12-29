@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
+    val myDB = DBHelper(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -20,6 +22,10 @@ class LoginActivity : AppCompatActivity() {
             }
             false
         })
+
+        //init of DB for tests data
+        myDB.insertData("admin@admin.com", "admin123")
+        myDB.insertData("test@test.com", "test123")
 
         email_sign_in_button.setOnClickListener { attemptLogin() }
     }
@@ -64,8 +70,17 @@ class LoginActivity : AppCompatActivity() {
             // form field with an error.
             focusView?.requestFocus()
         } else {
-            successful_login_text_view.visibility = View.VISIBLE
+            //detection of SQL injection and display of (un)successful login message accordingly
+            if (isSQLInjection(emailStr, passwordStr)){
+                unsuccessful_login_text_view.visibility = View.VISIBLE
+            } else {
+                successful_login_text_view.visibility = View.VISIBLE
+            }
         }
+    }
+
+    private fun isSQLInjection(email: String, password: String): Boolean {
+        return !(myDB.checkusername(email) and myDB.checkusernamepassword(email, password))
     }
 
     private fun isEmailValid(email: String): Boolean {
