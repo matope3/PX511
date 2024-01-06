@@ -10,6 +10,7 @@ import android.support.test.espresso.assertion.ViewAssertions.doesNotExist
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.base.DefaultFailureHandler
 import android.support.test.espresso.matcher.ViewMatchers.*
+import org.hamcrest.Matchers.not
 import android.support.test.rule.ActivityTestRule
 import com.sniper.bdd.LoginActivity
 import com.sniper.bdd.R
@@ -47,13 +48,8 @@ class LoginScreenRobot {
         onView(withText(InstrumentationRegistry.getTargetContext().getString(R.string.action_sign_in))).perform(click())
     }
 
-    fun isSuccessfulLogin(success : String) {
-        if (success == "true"){
-                onView(withId(R.id.successful_login_text_view)).check(withCustomMessage("Login was not successful as expected",matches(isDisplayed())))
-        } else {
-                onView(withId(R.id.successful_login_text_view)).check(withCustomMessage("SQL Injection detected: Login was successful unexpectedly",matches(withEffectiveVisibility(Visibility.GONE))))
-        }
-        //onView(withId(R.id.successful_login_text_view)).check(matches(withText(R.string.successful_login)))
+    fun checkIfSignInButtonIsBlocked() {
+        onView(withId(R.id.email_sign_in_button)).check(withCustomMessage("Button is not blocked", matches(not(isEnabled()))));
     }
 
     private fun withCustomMessage(message: String, assertion: ViewAssertion): ViewAssertion {

@@ -32,38 +32,21 @@ class LoginDetailsSteps {
         robot.launchLoginScreen(activityRule)
     }
 
-    @When("^I click email field$")
-    fun i_click_email_field() {
-        robot.selectEmailField()
+    @When("^I try to logging ([0-9]*) times$")
+    fun iTryToLoggingNumberTimes(number: Int) {
+
+            robot.selectEmailField()
+            robot.enterEmail("brute@force.com")
+            robot.selectPasswordField()
+            robot.enterPassword("bruteforce")
+            robot.closeKeyboard()
+        for (i in 1..number) {
+            robot.clickSignInButton()
+        }
     }
 
-    @And("^I close the keyboard$")
-    fun i_close_the_keyboard() {
-        robot.closeKeyboard()
-    }
-
-    @And("^I enter email (.*)$")
-    fun i_enter_valid_email(email: String) {
-        robot.enterEmail(email)
-    }
-
-    @And("^I click password field$")
-    fun i_click_password_field() {
-        robot.selectPasswordField()
-    }
-
-    @And("^I enter password (\\S+)$")
-    fun i_enter_valid_password(password: String) {
-        robot.enterPassword(password)
-    }
-
-    @And("^I click sign in button$")
-    fun i_click_sign_in_button() {
-        robot.clickSignInButton()
-    }
-
-    @Then("^I expect to see (true|false) login message$")
-    fun iExpectToSeeUnsuccessfulLoginMessage(success : String) {
-        robot.isSuccessfulLogin(success)
+    @Then("^I'm waiting for the login button to be blocked$")
+    fun iMWaitingForTheLoginButtonToBeBlocked() {
+        robot.checkIfSignInButtonIsBlocked()
     }
 }
