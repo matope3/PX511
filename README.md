@@ -11,5 +11,5 @@ On a une application de login simple avec une base de donnée qui contient 3 uti
 Avec ce test on spécifie un nombre de tentatives de connexion (qui échoueront toutes)
 Et on cherche à ne plus pouvoir cliquer sur le bouton de login après un certain nombre de tentatives.
 
-Avec cette application qui ne protège pas du bruteforce, on peut cliquer autant de fois qu'on veut sur le boutons de login sans conséquences.
-Donc tous les tests seront en échecs.
+Avec cette application qui protège du bruteforce, on dispose de 3 tentatives de connexion avant de bloquer le bouton de login.
+Même en réouvrant l'application après le bouton de login bloqué, il faudra attendre 5 minutes avant de pouvoir réessayer de se connecter.
