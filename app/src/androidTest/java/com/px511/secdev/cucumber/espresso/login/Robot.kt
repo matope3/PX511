@@ -62,6 +62,11 @@ class Robot {
         onView(withId(R.id.unsuccessful_login_text_view)).check(matches(withText(R.string.unsuccessful_login)))
     }
 
+    fun restartActivity(testRule: ActivityTestRule<LoginActivity>){
+        Espresso.pressBackUnconditionally()
+        testRule.finishActivity()
+        testRule.launchActivity(null)
+    }
     fun checkSession(){
         onView(withId(R.id.logout)).check(matches(isDisplayed())).check(withCustomMessage("Session valid",matches(isEnabled())))
     }

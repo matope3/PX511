@@ -41,6 +41,7 @@ class StepDefs {
 
     @Then("^une nouvelle session utilisateur devrait être créée$")
     fun uneNouvelleSessionUtilisateurDevraitEtreCreee() {
+        robot.restartActivity(activityRule)
         robot.checkSession()
     }
 
