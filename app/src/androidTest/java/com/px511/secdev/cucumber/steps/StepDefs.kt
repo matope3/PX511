@@ -1,6 +1,9 @@
 package com.px511.secdev.cucumber.steps
 
+import android.os.SystemClock.sleep
+import android.support.test.espresso.Espresso
 import android.support.test.rule.ActivityTestRule
+import com.px511.secdev.HomeActivity
 import com.px511.secdev.LoginActivity
 import com.px511.secdev.cucumber.espresso.login.Robot
 import com.px511.secdev.utils.ActivityFinisher
@@ -17,6 +20,7 @@ class StepDefs {
 
     private val activityRule = ActivityTestRule(LoginActivity::class.java, false, false)
 
+    private val homeActivityRule = ActivityTestRule(HomeActivity::class.java, false, false)
     @Before
     fun setup() {
         //not needed now, but you may need to set up mock responses before your screen starts
@@ -92,6 +96,7 @@ class StepDefs {
 
     @Then("^une nouvelle session utilisateur devrait être créée$")
     fun uneNouvelleSessionUtilisateurDevraitEtreCreee() {
+        robot.restartActivity(activityRule)
         robot.checkSession()
     }
 

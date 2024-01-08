@@ -24,7 +24,6 @@ class LoginActivity : AppCompatActivity() {
             val intent: Intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }
-
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
