@@ -14,4 +14,5 @@
     </string>
     <string name="successful_login">Successful Login</string>
     <string name="unsuccessful_login">Unsuccessful Login</string>
+    <string name="back_to_login">back to login</string>
 </resources>

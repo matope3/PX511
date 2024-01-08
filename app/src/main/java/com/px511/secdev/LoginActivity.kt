@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
         //init of DB for tests data
         myDB.insertData("admin@admin.com", "admin123")
         myDB.insertData("test@test.com", "test123")
+        myDB.insertData("test1@test.com","test123")
 
         email_sign_in_button.setOnClickListener { attemptLogin() }
     }
