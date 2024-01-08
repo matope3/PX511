@@ -25,8 +25,8 @@ class HomeActivity : AppCompatActivity() {
 
         logout.setOnClickListener(object : View.OnClickListener{
             override fun onClick(view: View?) {
-                val sessionManagement = SessionManagement(this@HomeActivity)
-                sessionManagement.removeSession()
+                // val sessionManagement = SessionManagement(this@HomeActivity)
+                // sessionManagement.removeSession()
 
                 val intent: Intent = Intent(applicationContext, LoginActivity::class.java)
                 startActivity(intent)

@@ -27,57 +27,6 @@ class StepDefs {
         ActivityFinisher.finishOpenActivities() // Required for test scenarios with multiple activities or scenarios with more cases
     }
 
-    @Given("^I start the application$")
-    fun i_start_app() {
-        robot.launchLoginScreen(activityRule)
-    }
-
-    @When("^I click on email field$")
-    fun i_click_email_field() {
-        robot.selectEmailField()
-    }
-
-    @And("^I close the keyboard$")
-    fun i_close_keyboard() {
-        robot.closeKeyboard()
-    }
-
-    @And("^I enter an email (.*)$")
-    fun i_enter_email(email: String) {
-        robot.enterEmail(email)
-    }
-
-    @And("^I click on password field$")
-    fun i_click_password_field() {
-        robot.selectPasswordField()
-    }
-
-    @And("^I enter a password (.*)$")
-    fun i_enter_password(password: String) {
-        robot.enterPassword(password)
-    }
-
-    @And("^I click on sign in button$")
-    fun i_click_sign_in_button() {
-        robot.clickSignInButton()
-    }
-
-    @Then("^I expect to see successful login message$")
-    fun i_expect_to_see_successful_login_message() {
-        robot.isSuccessfulLogin()
-    }
-
-    @Then("^I expect to deny login if SQL injection is (true|false) attempted$")
-    fun iExpectToDenyLoginIfSQLInjection(attempted: Boolean) {
-        if (attempted){
-            robot.isDeniedLogin()
-        }
-        else {
-            robot.isSuccessfulLogin()
-        }
-    }
-
-
     @Given("^que je suis connecté avec mon (.*) et (.*)$")
     fun queJeSuisConnecteAvecMonEmailEtPassword(email: String, password: String) {
         robot.launchLoginScreen(activityRule)

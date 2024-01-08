@@ -6,6 +6,8 @@ import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.ViewAssertion
 import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.intent.Intents.intended
+import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import com.px511.secdev.HomeActivity
@@ -62,12 +64,12 @@ class Robot {
 
     fun checkSession(){
         onView(withId(R.id.logout)).check(withCustomMessage("Session valid", matches(isDisplayed())))
+
+        intended(hasComponent(HomeActivity::class.java.name))
     }
 
     fun checkLoginPage(){
-        onView(withId(R.id.email_sign_in_button)).check(withCustomMessage("Session invalidated successfully", matches(
-            isDisplayed()
-        )))
+        intended(hasComponent(LoginActivity::class.java.name))
     }
 
     fun logout(){
