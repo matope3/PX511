@@ -63,13 +63,12 @@ class Robot {
     }
 
     fun checkSession(){
-        onView(withId(R.id.logout)).check(withCustomMessage("Session valid", matches(isDisplayed())))
-
-        intended(hasComponent(HomeActivity::class.java.name))
+        onView(withId(R.id.logout)).check(matches(isDisplayed())).check(withCustomMessage("Session valid",matches(isEnabled())))
     }
 
     fun checkLoginPage(){
-        intended(hasComponent(LoginActivity::class.java.name))
+        //Vérifier si un des objets de la page login est présent
+        onView(withId(R.id.email_sign_in_button)).check(matches(isDisplayed())).check(withCustomMessage("Expected Login Page",matches(isEnabled())))
     }
 
     fun logout(){
