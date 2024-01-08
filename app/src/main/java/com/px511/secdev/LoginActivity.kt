@@ -1,5 +1,6 @@
 package com.px511.secdev
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -7,11 +8,24 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.Random
 
 class LoginActivity : AppCompatActivity() {
 
     val myDB = DBHelper(this)
 
+    override fun onStart() {
+        super.onStart()
+
+        val sessionManagement = SessionManagement(this)
+        val UserEmail = sessionManagement.session
+
+        if (!UserEmail.equals("None")){
+            val intent: Intent = Intent(applicationContext, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -70,17 +84,28 @@ class LoginActivity : AppCompatActivity() {
             // form field with an error.
             focusView?.requestFocus()
         } else {
-            //detection of SQL injection and display of (un)successful login message accordingly
-            if (isSQLInjection(emailStr, passwordStr)){
-                unsuccessful_login_text_view.visibility = View.VISIBLE
-            } else {
-                successful_login_text_view.visibility = View.VISIBLE
-            }
-        }
-    }
+            if (myDB.checkusername(emailStr)){
+                if(myDB.checkusernamepassword(emailStr,passwordStr)) {
+                    val user = User(emailStr, passwordStr)
+                    val sessionManagement = SessionManagement(this)
+                    sessionManagement.saveSession(user)
 
-    private fun isSQLInjection(email: String, password: String): Boolean {
-        return !(myDB.checkusername(email) and myDB.checkusernamepassword(email, password))
+                    val intent: Intent = Intent(applicationContext, HomeActivity::class.java)
+                    startActivity(intent)
+                }
+                else{
+                    password.error = "Wrong password"
+                    focusView = password
+                    cancel = true
+                }
+            }
+            else {
+                email.error = "Wrong email"
+                focusView = email
+                cancel = true
+            }
+
+        }
     }
 
     private fun isEmailValid(email: String): Boolean {
